@@ -1,38 +1,178 @@
-.App {
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: 'OpenSans-Light';
+  src: url('./assets/fonts/OpenSans-Light.ttf');
+  font-display: swap;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@font-face {
+  font-family: 'OpenSans-Regular';
+  src: url('./assets/fonts/OpenSans-Regular.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenSans-Medium';
+  src: url('./assets/fonts/OpenSans-Medium.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenSans-Bold';
+  src: url('./assets/fonts/OpenSans-Bold.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenSans-SemiBold';
+  src: url('./assets/fonts/OpenSans-SemiBold.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenSans-ExtraBold';
+  src: url('./assets/fonts/OpenSans-ExtraBold.ttf');
+  font-display: swap;
+}
+
+:root {
+  --white: #fff;
+  --primary: #194782;
+  --secondary: #00b3ff;
+  --red: #ff0000;
+  --gray: #545454;
+  --gray-2: #656565;
+  --gray-3: #c5c5c5;
+  --gray-4: #0000000f;
+  --black: #000000;
+  --placeholder: #495057;
+  --light-black: #606366;
+  --green: #93c349;
+  --orange: #f6b01c;
+  --dark-orange: #ea7023;
+  --yellow: #f4e409;
+  --light-gray: #f3f3f3;
+  --light-gray-2: #d4d4d4;
+  --background: #f7f9fc;
+  --dark-gray: #3e5259;
+  --light-blue: #e4f3f3;
+  --light-pink: rgb(251, 236, 236);
+  --dark-pink: #bf1650;
+  --font-Light: OpenSans-Light;
+  --font-Regular: OpenSans-Regular;
+  --font-Medium: OpenSans-Medium;
+  --font-Bold: OpenSans-Bold;
+  --font-Semibold: OpenSans-Semibold;
+  --font-ExtraBold: OpenSans-ExtraBold;
+  --gradient-primary: rgba(0, 156, 169, 0.7);
+  --gradient-2: rgba(0, 156, 169, 0.75) rgba(0, 156, 169, 1);
+}
+
+body {
+  font-family: var(--font-Regular);
+  scroll-behavior: smooth;
+}
+
+.main-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+input {
+  outline: none;
+  border: none;
+  font-family: var(--font-Regular);
+}
+
+/* Input type number remove arrows */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+}
+.text-oneline,
+.text-threeline,
+.text-foreline,
+.text-sixline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  white-space: normal;
+}
+
+.text-oneline {
+  -webkit-line-clamp: 1;
+}
+.text-threeline {
+  -webkit-line-clamp: 3;
+}
+.text-foreline {
+  -webkit-line-clamp: 4;
+}
+.text-sixline {
+  -webkit-line-clamp: 6;
+}
+
+.navbarSticky {
+  position: fixed;
+  animation: stickyNavbar 0.9s;
+  top: 0;
+  background-color: var(--white);
+  box-shadow: 0px 0px 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--light-gray-2);
+}
+
+@keyframes stickyNavbar {
+  0% {
+    top: -100px;
+  }
+  100% {
+    top: 0;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.sidebarMain {
+  background-color: var(--background);
+  position: absolute;
+  width: calc(100% - 280px);
+  height: 100%;
+  left: 280px;
+  transition: width 0.5s;
+  overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+/* multi-select */
+.multi-select {
+  width: 100%;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.multi-select .ant-select-selector {
+  border: 1px solid var(--gray-3) !important;
+}
+.multi-select-error .ant-select-selector {
+  border-width: 1px 8px 1px 1px !important;
+  border-style: solid !important;
+  border-color: rgb(219, 18, 88) rgb(191, 22, 80) rgb(191, 22, 80) rgb(236, 89, 144) !important ;
+  background: rgb(251, 236, 236) !important;
+  transition: 200ms;
 }
