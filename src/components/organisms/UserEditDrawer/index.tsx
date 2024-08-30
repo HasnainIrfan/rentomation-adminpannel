@@ -11,6 +11,7 @@ import FloatInput from '../FloatInput';
 import SelectInput from '../../atoms/select';
 import SolidRadio from '../../atoms/solidRadio';
 import CustomDrawer from '../Drawer';
+import Button from '../../atoms/Button';
 
 // Data
 import { PakistanLocations, RadioOption, genderOptions } from '../../../data/dummyData';
@@ -273,6 +274,10 @@ function UserEditDrawer({ open, setOpen, data }: PropsTypes) {
             <SolidRadio title="Gender" field={field} option={genderOptions} />
           )}
         />
+
+        <div className="w-full mt-6">
+          <Button size="large">Update User</Button>
+        </div>
       </form>
     </CustomDrawer>
   );
