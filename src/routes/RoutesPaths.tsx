@@ -1,18 +1,16 @@
-// React Router Dom
-// import { Navigate, Outlet } from "react-router-dom";
-
 // data
 import { LINKS } from '../data/links';
 
 // Components
 import Dashboard from '../components/pages/Dashboard';
 import Login from '../components/pages/Login';
-
-// Types
-import { RouteType } from '../types/commonTypes';
 import Error401 from '../components/pages/Error401';
 import Error404 from '../components/pages/Error404';
 import User from '../components/pages/User';
+
+// Types
+import { RouteType } from '../types/commonTypes';
+import Doctor from '../components/pages/Doctor';
 
 export const PublicRoutes: RouteType[] = [
   {
@@ -21,10 +19,14 @@ export const PublicRoutes: RouteType[] = [
   },
 ];
 
-export const PrivateRoutes = [
+export const PrivateRoutes: RouteType[] = [
   {
     path: LINKS.DASHBOARD,
     Component: Dashboard,
+  },
+  {
+    path: LINKS.DOCTOR,
+    Component: Doctor,
   },
   {
     path: LINKS.USER,
@@ -32,7 +34,7 @@ export const PrivateRoutes = [
   },
 ];
 
-export const OtherRoutes = [
+export const OtherRoutes: RouteType[] = [
   {
     path: LINKS.ERROR_404,
     Component: Error404,

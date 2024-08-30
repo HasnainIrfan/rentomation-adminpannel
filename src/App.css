@@ -9,56 +9,55 @@
 }
 
 @font-face {
-  font-family: 'OpenSans-Light';
-  src: url('./assets/fonts/OpenSans-Light.ttf');
+  font-family: 'IBMPlexSans';
+  src: url('./assets/fonts/IBMPlexSans-Light.ttf') format('truetype');
+  font-weight: 300;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'OpenSans-Regular';
-  src: url('./assets/fonts/OpenSans-Regular.ttf');
+  font-family: 'IBMPlexSans';
+  src: url('./assets/fonts/IBMPlexSans-Regular.ttf') format('truetype');
+  font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'OpenSans-Medium';
-  src: url('./assets/fonts/OpenSans-Medium.ttf');
+  font-family: 'IBMPlexSans';
+  src: url('./assets/fonts/IBMPlexSans-Medium.ttf') format('truetype');
+  font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'OpenSans-Bold';
-  src: url('./assets/fonts/OpenSans-Bold.ttf');
+  font-family: 'IBMPlexSans';
+  src: url('./assets/fonts/IBMPlexSans-Bold.ttf') format('truetype');
+  font-weight: 700;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'OpenSans-SemiBold';
-  src: url('./assets/fonts/OpenSans-SemiBold.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'OpenSans-ExtraBold';
-  src: url('./assets/fonts/OpenSans-ExtraBold.ttf');
+  font-family: 'IBMPlexSans';
+  src: url('./assets/fonts/IBMPlexSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
   font-display: swap;
 }
 
 :root {
   --white: #fff;
-  --primary: #194782;
+  --primary: #009ca9;
   --secondary: #00b3ff;
   --red: #ff0000;
+  --light-red: #ff4d4d;
   --gray: #545454;
   --gray-2: #656565;
   --gray-3: #c5c5c5;
-  --gray-4: #0000000f;
+  --gray-4: #f8f9fa;
   --black: #000000;
   --placeholder: #495057;
   --light-black: #606366;
-  --green: #93c349;
-  --orange: #f6b01c;
-  --dark-orange: #ea7023;
+  --green: #0eec2f;
+  --orange: #ffa12b;
   --yellow: #f4e409;
   --light-gray: #f3f3f3;
   --light-gray-2: #d4d4d4;
@@ -67,18 +66,14 @@
   --light-blue: #e4f3f3;
   --light-pink: rgb(251, 236, 236);
   --dark-pink: #bf1650;
-  --font-Light: OpenSans-Light;
-  --font-Regular: OpenSans-Regular;
-  --font-Medium: OpenSans-Medium;
-  --font-Bold: OpenSans-Bold;
-  --font-Semibold: OpenSans-Semibold;
-  --font-ExtraBold: OpenSans-ExtraBold;
+  --font-IBM: 'IBM Plex Sans', sans-serif;
+  --light-White: rgba(255, 255, 255, 0.7);
   --gradient-primary: rgba(0, 156, 169, 0.7);
   --gradient-2: rgba(0, 156, 169, 0.75) rgba(0, 156, 169, 1);
 }
 
 body {
-  font-family: var(--font-Regular);
+  font-family: 'IBMPlexSans';
   scroll-behavior: smooth;
 }
 
@@ -175,4 +170,28 @@ button[disabled] {
   border-color: rgb(219, 18, 88) rgb(191, 22, 80) rgb(191, 22, 80) rgb(236, 89, 144) !important ;
   background: rgb(251, 236, 236) !important;
   transition: 200ms;
+}
+
+.ant-spin-dot-item {
+  background-color: white !important;
+}
+
+/* ant-Input floatInputAntd */
+.floatInputAntd {
+  padding: 14px 12px 2px 11px !important;
+}
+
+/* floatInputAntd-error */
+
+.floatInputAntd-error {
+  width: 100%;
+  border-width: 1px 10px 1px 1px !important;
+  border-radius: 8px;
+  border-style: solid !important;
+  border-color: rgb(219, 18, 88) rgb(191, 22, 80) rgb(191, 22, 80) rgb(236, 89, 144) !important ;
+  background: rgb(251, 236, 236) !important;
+}
+
+.ant-table-column-sorter-inner {
+  color: #fff;
 }

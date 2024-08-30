@@ -21,6 +21,7 @@ module.exports = {
         secondary: 'var(--secondary)',
         background: 'var(--background)',
         red: 'var(--red)',
+        lightRed: 'var(  --light-red)',
         blackColor: 'var(--black)',
         lightBlack: 'var(--light-black)',
         grayColor: 'var(--gray)',
@@ -41,6 +42,7 @@ module.exports = {
         gradientColorPrimary: 'var(--gradient-primary)',
         gradientColor2: 'var(--gradient-2)',
       },
+
       fontFamily: {
         fontLight: 'var(--font-light)',
         fontRegular: 'var(--font-regular)',
@@ -48,6 +50,7 @@ module.exports = {
         fontSemiBold: 'var(--font-semibold)',
         fontBold: 'var(--font-Bold)',
         fontExtraBold: 'var(--font-extrabold)',
+        fontIBM: 'var(--font-IBM)',
       },
     },
   },

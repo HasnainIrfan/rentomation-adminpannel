@@ -16,4 +16,5 @@ export type ButtonPropsType = {
   className?: string;
   leadingIcon?: React.ReactNode;
   shape?: 'circle' | 'round' | 'default';
+  htmlType?: 'button' | 'submit' | 'reset';
 };

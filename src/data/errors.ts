@@ -61,4 +61,8 @@ export const ERROR = {
   atLeastOneGroupIsRequired: 'At least one group is required',
   organizationEmailRequired: 'Organization email is required',
   messageToOrganizationRequired: 'Message to organization is required',
+  userNotFound: 'User not found',
+  emailNotFound: 'Email not found',
+  OTPIncorrect: 'Your OTP is incorrect',
+  passwordFailed: 'Password Reset Failed',
 };

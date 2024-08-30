@@ -1,3 +1,6 @@
+import React from 'react';
+
+// Antd
 import { Button as AntdButton } from 'antd';
 
 // Types
@@ -15,6 +18,7 @@ const Button = (props: ButtonPropsType) => {
     onClick,
     leadingIcon,
     shape,
+    htmlType,
   } = props;
 
   return (
@@ -24,6 +28,8 @@ const Button = (props: ButtonPropsType) => {
       color={color || 'primary'}
       size={size || 'middle'}
       type={type || 'primary'}
+      danger={color === 'danger'}
+      htmlType={htmlType || 'button'}
       disabled={disabled}
       loading={isLoading}
       icon={leadingIcon}

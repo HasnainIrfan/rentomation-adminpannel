@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 
 // Icons
-import { FaEye } from 'react-icons/fa';
-import { FaEyeSlash } from 'react-icons/fa6';
+
+import { Eye, EyeSlash } from 'iconsax-react';
 
 // Components
 import Text from '../commonText';
@@ -69,7 +69,7 @@ function Input(props: InputProps) {
             }`}
             onClick={handleTogglePassword}
           >
-            {showPassword ? <FaEye /> : <FaEyeSlash />}
+            {showPassword ? <Eye /> : <EyeSlash />}
           </div>
         )}
       </div>

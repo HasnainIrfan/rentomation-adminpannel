@@ -1,6 +1,5 @@
-/* eslint-disable sonarjs/prefer-immediate-return */
-export function formatDate(dateString: string): string {
-  const date = new Date(dateString);
+export function formatDate(dateString?: string): string {
+  const date = (dateString && new Date(dateString)) || new Date();
   const day = date.getDate().toString().padStart(2, '0');
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const year = date.getFullYear().toString();

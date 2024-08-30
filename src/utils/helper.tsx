@@ -1,3 +1,9 @@
+import debounce from 'debounce';
+import { useCallback } from 'react';
+
+type SetSearchFunction = (search: string) => void;
+type SetIsLoadingFunction = ((isLoading: boolean) => void) | undefined;
+
 export function generateRandomId() {
   return Math.floor(Math.random() * 9000) + 1000;
 }
@@ -18,4 +24,25 @@ export function generateUniqueId() {
 
   const uniqueId = `${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}${randomPart}`;
   return uniqueId;
+}
+
+export function useDebouncedSearch(
+  setSearch?: SetSearchFunction,
+  setIsLoading?: SetIsLoadingFunction,
+  setPage?: (page: number) => void
+): SetSearchFunction {
+  return useCallback(
+    debounce((search: string) => {
+      if (setSearch) {
+        setSearch(search);
+      }
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      if (setPage) {
+        setPage(1);
+      }
+    }, 800),
+    [setSearch, setIsLoading]
+  );
 }

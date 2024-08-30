@@ -1,9 +1,11 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 // Icons
-import { AiOutlineUser } from 'react-icons/ai';
-import { FiLock } from 'react-icons/fi';
+import { User, Lock } from 'iconsax-react';
 
 // use hook form
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 // Components
 import Text from '../../atoms/commonText';
@@ -11,9 +13,26 @@ import Input from '../../atoms/input';
 import Button from '../../atoms/Button';
 
 // Types
-import { LoginPropsType } from '@/src/types/loginTypes';
+import { LoginPropsType } from '../../../types/loginTypes';
+
+//Redux
+import { useLoginMutation } from '../../../redux/slice/loginSlice';
+
+//Cookie
+import { setCookie } from '../../../utils/cookie';
+
+//Data
+import { LABELS } from '../../../data/labels';
+import { LINKS } from '../../../data/links';
+
+// Utils
+import { showToast } from '../../../utils/toast';
+import { TABAYAD_SESSION } from '../../..//utils/constant';
 
 const LoginForm = () => {
+  const nevigate = useNavigate();
+  const [login, { isLoading }] = useLoginMutation({});
+
   const {
     register,
     formState: { errors },
@@ -22,8 +41,37 @@ const LoginForm = () => {
     mode: 'onTouched',
   });
 
-  const onSubmit = (data: LoginPropsType) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<LoginPropsType> = async formValues => {
+    try {
+      const res = await login(formValues);
+      const userDetail = res?.data?.data;
+
+      if (res?.data && userDetail.role === 'doctor') {
+        showToast({
+          message: 'Login Successfully',
+          type: 'success',
+        });
+        setCookie(TABAYAD_SESSION, JSON.stringify(userDetail));
+        nevigate(LINKS.DASHBOARD);
+      } else if (res?.error) {
+        return showToast({
+          message: 'Invalid Credentials',
+          type: 'error',
+        });
+      } else if (res?.data && userDetail.role !== 'doctor') {
+        return showToast({
+          message: 'You are not Authorized',
+          type: 'error',
+        });
+      } else {
+        return showToast({
+          message: 'Something went wrong',
+          type: 'error',
+        });
+      }
+    } catch (error) {
+      console.error('error on login', error);
+    }
   };
 
   return (
@@ -33,19 +81,19 @@ const LoginForm = () => {
           containerTag="h2"
           className="font-fontBold font-bold text-left text-4xl mb-1 text-primary"
         >
-          Sign In
+          {LABELS.signIn}
         </Text>
 
         <Text containerTag="h2" className="text-xs font-light">
-          Hey enter your details to sign in to your account
+          {LABELS.signInDesc}
         </Text>
       </div>
 
-      <div className="flex flex-col gap-3 mb-3">
+      <div className="flex flex-col gap-3 mb-[65px]">
         <Input
           label="email"
           type="text"
-          inputIcon={<AiOutlineUser />}
+          inputIcon={<User />}
           register={register}
           name="email"
           placeholder="Your Email"
@@ -57,9 +105,9 @@ const LoginForm = () => {
         />
 
         <Input
-          label="Password"
+          label="password"
           type="password"
-          inputIcon={<FiLock />}
+          inputIcon={<Lock />}
           register={register}
           name="password"
           errors={errors}
@@ -70,18 +118,14 @@ const LoginForm = () => {
         />
       </div>
 
-      <Text containerTag="h2" className="text-xs text-pretty font-medium mb-8">
-        Having trouble signing in?
-      </Text>
-
-      <Button color="primary" type="primary">
-        Login In
+      <Button
+        isLoading={isLoading}
+        color="primary"
+        htmlType="submit"
+        className="bg-primary w-full"
+      >
+        {LABELS.login}
       </Button>
-
-      <Text containerTag="h2" className="text-xs font-medium mt-3">
-        Forgot your password?{' '}
-        <span className="text-primary cursor-pointer">Reset Password</span>
-      </Text>
     </form>
   );
 };

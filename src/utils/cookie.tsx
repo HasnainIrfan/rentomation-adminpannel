@@ -9,7 +9,7 @@ const setCookie = (
   value: CookieValue
   // options?: CookieOptions
 ): void => {
-  Cookies.set(name, value, { secure: true, ...Option });
+  Cookies.set(name, value, { secure: true });
 };
 
 // Function to get a cookie
