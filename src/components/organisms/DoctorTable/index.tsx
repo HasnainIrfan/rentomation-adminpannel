@@ -9,6 +9,9 @@ import Text from '../../atoms/commonText';
 import Action from '../../atoms/Actions';
 import TableComponent from '../../atoms/Table';
 
+// Assets
+import { NoProfile } from '../../../assets/images/index';
+
 type PropsTypes = {
   onDelete: (id: number) => void;
   onView: (data: DoctorDataType) => void;
@@ -24,13 +27,7 @@ const DoctorTable = ({ onDelete, onView, onEdit, data }: PropsTypes) => {
       render: (text, record) => (
         <div className="flex items-center gap-3">
           <div className="relative w-7 h-7 rounded-full overflow-hidden">
-            {/* <Image
-              src={record.profile_image ? `${record.profile_image}` : NoImage}
-              alt="gym_Image"
-              fill
-              draggable={false}
-              unoptimized
-            /> */}
+            <img src={record?.profileImage?.url || NoProfile} alt="" draggable={false} />
           </div>
           <Text containerTag="h1" className="text-sm font-semibold text-grayColor">
             {record.name ? `${record.name} ${record?.middlename}` : 'No Name'}
@@ -142,7 +139,7 @@ const DoctorTable = ({ onDelete, onView, onEdit, data }: PropsTypes) => {
         <Action
           onView={() => onView(record as DoctorDataType)}
           onEdit={() => onEdit(record as DoctorDataType)}
-          onDelete={() => onDelete(record.id)}
+          onDelete={() => onDelete(record._id)}
         />
       ),
     },

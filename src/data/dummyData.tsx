@@ -210,3 +210,127 @@ export const PakistanLocations = [
     ],
   },
 ];
+
+export const waitTimeData = [
+  {
+    label: '15 - 30 mins',
+    value: '15 - 30 mins',
+  },
+  {
+    label: '30 - 45 mins',
+    value: '30 - 45 mins',
+  },
+  {
+    label: '45 - 60 mins',
+    value: '45 - 60 mins',
+  },
+  {
+    label: '60 - 75 mins',
+    value: '60 - 75 mins',
+  },
+  {
+    label: '75 - 90 mins',
+    value: '75 - 90 mins',
+  },
+  {
+    label: '90 - 105 mins',
+    value: '90 - 105 mins',
+  },
+  {
+    label: '105 - 120 mins',
+    value: '105 - 120 mins',
+  },
+];
+
+export const SpecializationOptions = [
+  {
+    label: 'Musulo Skeletal',
+    value: 'Musulo-skeletal',
+  },
+  {
+    label: 'Physiotherapy',
+    value: 'physiotherapy',
+  },
+  {
+    label: 'Orthopaedic Physiotherapy',
+    value: 'Orthopaedic-Physiotherapy',
+  },
+  {
+    label: 'Sports Physiotherapy',
+    value: 'Sports-Physiotherapy',
+  },
+];
+
+export const servidesData = [
+  {
+    label: 'Consultation',
+    value: 'consultation',
+  },
+  {
+    label: 'Diagnostic Imaging',
+    value: 'diagnostic-imaging',
+  },
+  {
+    label: 'Laboratory Services',
+    value: 'laboratory-services',
+  },
+  {
+    label: 'Health Checks',
+    value: 'health-checks',
+  },
+  {
+    label: 'Physiotherapy',
+    value: 'physiotherapy',
+  },
+  {
+    label: 'Orthopaedic Physiotherapy',
+    value: 'Orthopaedic-Physiotherapy',
+  },
+  {
+    label: 'Sports Physiotherapy',
+    value: 'Sports-Physiotherapy',
+  },
+  {
+    label: 'General Physiotherapy',
+    value: 'General-Physiotherapy',
+  },
+  {
+    label: 'Rehabilitation',
+    value: 'Rehabilitation',
+  },
+  {
+    label: 'Prenatal Physiotherapy',
+    value: 'Prenatal-Physiotherapy',
+  },
+  {
+    label: 'Sports Injury Management',
+    value: 'Sports-Injury-Management',
+  },
+];
+
+export const EducationOptions = [
+  {
+    label: 'M.B.B.S',
+    value: 'M.B.B.S',
+  },
+  {
+    label: 'Aesthetic Physician (AAAM) USA',
+    value: 'Aesthetic Physician (AAAM) USA',
+  },
+  {
+    label: 'D.Derm',
+    value: 'D.Derm',
+  },
+  {
+    label: 'Dermatologist',
+    value: 'Dermatologist',
+  },
+  {
+    label: 'Cosmetologist',
+    value: 'Cosmetologist',
+  },
+  {
+    label: 'Aesthetic Physician',
+    value: 'Aesthetic Physician',
+  },
+];

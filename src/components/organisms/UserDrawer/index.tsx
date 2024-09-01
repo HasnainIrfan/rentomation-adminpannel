@@ -33,7 +33,11 @@ function UserDrawer({ open, setOpen, data }: PropsTypes) {
       <div className="">
         <div className="w-full flex items-center justify-center mb-5">
           <div className="relative w-[100px] h-[100px] border-[3px] border-background rounded-full overflow-hidden object-cover ">
-            <img src={NoProfile} alt="Profile" draggable={false} />
+            <img
+              src={data?.profileImage?.url || NoProfile}
+              alt="Profile"
+              draggable={false}
+            />
           </div>
         </div>
         <div className="relative flex flex-col gap-3">

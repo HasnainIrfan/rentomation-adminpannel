@@ -38,7 +38,7 @@ function SolidRadio(props: SolidRadioPropsTypes) {
     >
       <Text
         containerTag="h6"
-        className={`flex flex-1 text-grayColor2 font-semibold mt-1 text-base`}
+        className={`flex flex-1 text-grayColor2 font-semibold mt-1 text-sm`}
       >
         {title}
       </Text>

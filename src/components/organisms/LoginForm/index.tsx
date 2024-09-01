@@ -46,7 +46,7 @@ const LoginForm = () => {
       const res = await login(formValues);
       const userDetail = res?.data?.data;
 
-      if (res?.data && userDetail.role === 'doctor') {
+      if (res?.data && userDetail.role === 'admin') {
         showToast({
           message: 'Login Successfully',
           type: 'success',
@@ -58,7 +58,7 @@ const LoginForm = () => {
           message: 'Invalid Credentials',
           type: 'error',
         });
-      } else if (res?.data && userDetail.role !== 'doctor') {
+      } else if (res?.data && userDetail.role !== 'admin') {
         return showToast({
           message: 'You are not Authorized',
           type: 'error',
@@ -100,7 +100,7 @@ const LoginForm = () => {
           errors={errors}
           check={{
             required: `Email is Required`,
-            pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+            // pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
           }}
         />
 

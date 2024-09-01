@@ -11,8 +11,8 @@ function ArrayContainer({ label, data }: { label: string; data?: string[] }) {
         {label}
       </Text>
 
-      {data ? (
-        <ul className="flex flex-wrap gap-1 list-disc ml-3">
+      {data && data?.length > 0 ? (
+        <ul className="flex flex-col gap-1 list-disc ml-3">
           {data.map((item, index) => (
             <li key={index}>
               <Text

@@ -112,7 +112,7 @@ const UserTable = ({ onDelete, onView, onEdit, data }: PropsTypes) => {
         <Action
           onView={() => onView(record as UserData)}
           onEdit={() => onEdit(record as UserData)}
-          onDelete={() => onDelete(record.id)}
+          onDelete={() => onDelete(record._id)}
         />
       ),
     },

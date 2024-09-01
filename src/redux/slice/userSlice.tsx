@@ -20,23 +20,31 @@ export const userSlice = createApi({
   tagTypes: ['Post', 'Put'],
 
   endpoints: builder => ({
+    dashboardAnalytics: builder.query({
+      query: () => '/dashboard/all-analytics',
+    }),
+
     getAllUsers: builder.query({
-      query: isVerified =>
-        isVerified
+      query: ({ isVerified, search }) =>
+        isVerified !== undefined && isVerified !== null
           ? `/auth/get-users?role=patient&isVerified=${isVerified}`
-          : '/auth/get-users?role=patient',
+          : search
+            ? `/auth/get-users?role=patient&query=${search}`
+            : '/auth/get-users?role=patient',
       providesTags: ['Post'],
     }),
 
     getAllDoctors: builder.query({
-      query: ({ isVerified, isDoctorVerified }) =>
+      query: ({ isVerified, isDoctorVerified, search }) =>
         isVerified !== undefined && isVerified !== null
           ? `/auth/get-users?role=doctor&isVerified=${isVerified}`
           : isDoctorVerified !== undefined && isDoctorVerified !== null
             ? `/auth/get-users?isDoctorVerified=${isDoctorVerified}&role=doctor`
             : isVerified && isDoctorVerified
               ? `/auth/get-users?isDoctorVerified=${isDoctorVerified}&role=doctor&isVerified=${isVerified}`
-              : '/auth/get-users?role=doctor',
+              : search
+                ? `/auth/get-users?role=doctor&query=${search}`
+                : '/auth/get-users?role=doctor',
       providesTags: ['Post'],
     }),
 
@@ -47,8 +55,22 @@ export const userSlice = createApi({
       }),
       invalidatesTags: ['Post'],
     }),
+
+    updateUser: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/auth/update-user/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['Post'],
+    }),
   }),
 });
 
-export const { useGetAllUsersQuery, useDeleteUserMutation, useGetAllDoctorsQuery } =
-  userSlice;
+export const {
+  useGetAllUsersQuery,
+  useDeleteUserMutation,
+  useGetAllDoctorsQuery,
+  useDashboardAnalyticsQuery,
+  useUpdateUserMutation,
+} = userSlice;

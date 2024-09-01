@@ -20,6 +20,10 @@ import { PaginationType, ResponseData } from '../../data/types';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 
+// Utils
+import { showToast } from '../../utils/toast';
+import { ErrorMessage } from '../../utils/error';
+
 const User = () => {
   const [search, setSearch] = useState<string>('');
   const [isDrawer, setIsDrawer] = useState<boolean>(false);
@@ -37,7 +41,14 @@ const User = () => {
   // Delete User
   const [deleteUser, { isLoading: deleteLoading }] = useDeleteUserMutation();
 
-  const { data: userData, isLoading, isFetching } = useGetAllUsersQuery(isVerify);
+  const {
+    data: userData,
+    isLoading,
+    isFetching,
+  } = useGetAllUsersQuery({
+    search,
+    isVerified: isVerify,
+  });
   const data = userData?.data?.docs;
 
   const onDeleteModel = (id: number) => {
@@ -56,13 +67,14 @@ const User = () => {
         error?: FetchBaseQueryError | SerializedError;
       } = await deleteUser(userId);
 
-      console.log(res, 'res123');
-
-      // if (res?.data) {
-      //   toast.success(res?.data?.message);
-      // } else {
-      //   ErrorMessage(res.error as { data?: { message?: string } } | undefined);
-      // }
+      if (res?.data) {
+        showToast({
+          type: 'success',
+          message: res?.data?.message,
+        });
+      } else {
+        ErrorMessage(res.error as { data?: { message?: string } } | undefined);
+      }
     } catch (error) {
       console.error('error', error);
     } finally {

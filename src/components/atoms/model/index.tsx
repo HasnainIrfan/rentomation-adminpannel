@@ -4,7 +4,7 @@ import React from 'react';
 import { Modal } from 'antd';
 
 // Icons
-// import { IoCloseSharp } from 'react-icons/io5';
+import { CloseSquare } from 'iconsax-react';
 
 // Component
 import Text from '../commonText';
@@ -44,7 +44,7 @@ function Model({
             className="text-white sm:text-2xl text-xl cursor-pointer duration-200 hover:rotate-180 hover:duration-200"
             onClick={handleClose}
           >
-            {/* <IoCloseSharp /> */}
+            <CloseSquare />
           </div>
         )}
 

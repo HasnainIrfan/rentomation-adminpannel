@@ -22,6 +22,11 @@ import { PaginationType, ResponseData } from '../../data/types';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 
+// Utils
+import { showToast } from '../../utils/toast';
+import { ErrorMessage } from '../../utils/error';
+import DoctorEditDrawer from '../organisms/DoctorEditDrawer';
+
 const Doctor = () => {
   const [search, setSearch] = useState<string>('');
   const [isDrawer, setIsDrawer] = useState<boolean>(false);
@@ -49,6 +54,8 @@ const Doctor = () => {
     isDoctorVerified: isVerifyDoctor,
   });
 
+  console.log(userData, 'userData123');
+
   const data = userData?.data?.docs;
 
   const onDeleteModel = (id: number) => {
@@ -67,13 +74,14 @@ const Doctor = () => {
         error?: FetchBaseQueryError | SerializedError;
       } = await deleteUser(userId);
 
-      console.log(res, 'res123');
-
-      // if (res?.data) {
-      //   toast.success(res?.data?.message);
-      // } else {
-      //   ErrorMessage(res.error as { data?: { message?: string } } | undefined);
-      // }
+      if (res?.data) {
+        showToast({
+          type: 'success',
+          message: res?.data?.message,
+        });
+      } else {
+        ErrorMessage(res.error as { data?: { message?: string } } | undefined);
+      }
     } catch (error) {
       console.error('error', error);
     } finally {
@@ -98,7 +106,7 @@ const Doctor = () => {
         setOpen={setIsDrawer}
         data={isDrawerData as DoctorDataType}
       />
-      {/* <UserEditDrawer open={isEdit} setOpen={setIsEdit} data={isDrawerDataa} /> */}
+      <DoctorEditDrawer open={isEdit} setOpen={setIsEdit} data={isDrawerData} />
 
       {/* Delete Confrim Model */}
       <ConfrimModel

@@ -31,9 +31,9 @@ const SubHeader = ({
   search?: string;
   setSearch?: (value: string) => void;
   isVerify?: boolean | null;
-  setIsVerify?: (value: boolean) => void;
+  setIsVerify?: (value: boolean | null) => void;
   isVerifyDoctor?: boolean | null;
-  setIsVerifyDoctor?: (value: boolean) => void;
+  setIsVerifyDoctor?: (value: boolean | null) => void;
 }) => {
   const [searchInput, setSearchInput] = useState(search || '');
   const [loading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ const SubHeader = ({
     debounce(value => {
       if (setSearch) setSearch(value);
       setLoading(false);
-    }, 500),
+    }, 800),
     []
   );
 
@@ -51,6 +51,8 @@ const SubHeader = ({
     setSearchInput(value);
     debouncedSetSearch(value);
     setLoading(true);
+    setIsVerifyDoctor && setIsVerifyDoctor(null);
+    setIsVerify && setIsVerify(null);
   };
 
   return (
@@ -87,6 +89,7 @@ const SubHeader = ({
             value={isVerify}
             onChange={value => {
               setIsVerify && setIsVerify(value);
+              setSearch && setSearch('');
             }}
           />
 
@@ -99,6 +102,7 @@ const SubHeader = ({
               value={isVerifyDoctor}
               onChange={value => {
                 setIsVerifyDoctor && setIsVerifyDoctor(value);
+                setSearch && setSearch('');
               }}
             />
           )}
