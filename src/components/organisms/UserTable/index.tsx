@@ -8,6 +8,7 @@ import type { ColumnsType } from 'antd/es/table';
 import Text from '../../atoms/commonText';
 import Action from '../../atoms/Actions';
 import TableComponent from '../../atoms/Table';
+import { NoProfile } from '../../../assets/images/index';
 
 type PropsTypes = {
   onDelete: (id: number) => void;
@@ -24,14 +25,11 @@ const UserTable = ({ onDelete, onView, onEdit, data }: PropsTypes) => {
       render: (text, record) => (
         <div className="flex items-center gap-3">
           <div className="relative w-7 h-7 rounded-full overflow-hidden">
-            {/* <Image
-              src={record.profile_image ? `${record.profile_image}` : NoImage}
-              alt="gym_Image"
-              fill
-              draggable={false}
-              unoptimized
-            /> */}
+            <img src={record?.profileImage?.url || NoProfile} alt="" draggable={false} />
           </div>
+          <Text containerTag="h1" className="text-sm font-semibold text-grayColor">
+            {record.name ? `${record.name} ${record?.middlename}` : 'No Name'}
+          </Text>
           <Text containerTag="h1" className="text-sm font-semibold text-grayColor">
             {record.name ? `${record.name} ${record?.middlename}` : 'No Name'}
           </Text>
@@ -81,7 +79,7 @@ const UserTable = ({ onDelete, onView, onEdit, data }: PropsTypes) => {
       dataIndex: 'gym_id',
       align: 'center',
       render: (text, record: any) => (
-        <Text containerTag="h5">{record?.location?.name}</Text>
+        <Text containerTag="h5">{record?.location?.[0]?.name}</Text>
       ),
     },
     {

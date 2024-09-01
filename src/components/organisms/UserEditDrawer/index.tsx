@@ -15,6 +15,8 @@ import Button from '../../atoms/Button';
 
 // Data
 import { PakistanLocations, RadioOption, genderOptions } from '../../../data/dummyData';
+import { useUpdateUserMutation } from './../../../redux/slice/userSlice';
+import { showToast } from './../../../utils/toast';
 
 type PropsTypes = {
   open: boolean;
@@ -24,6 +26,8 @@ type PropsTypes = {
 
 function UserEditDrawer({ open, setOpen, data }: PropsTypes) {
   const [selectedCity, setSelectedCity] = useState<string>('');
+
+  const [updateUser, { isLoading: updateLoading }] = useUpdateUserMutation();
 
   const {
     formState: { errors },
@@ -44,9 +48,11 @@ function UserEditDrawer({ open, setOpen, data }: PropsTypes) {
       setValue('role', data.role);
       setValue('cnic', data.cnic);
       setValue('city', data.city);
-      setValue('location', data.location);
+      setValue(
+        'location',
+        data?.location?.map((item: { name: string }) => item.name) as never
+      );
       setValue('address', data.address);
-
       setValue('isVerified', data?.isVerified);
       setValue('gender', data?.gender);
     }
@@ -66,6 +72,42 @@ function UserEditDrawer({ open, setOpen, data }: PropsTypes) {
     key,
   }));
 
+  const onSubmit = async (formData: any) => {
+    const { location: locationName, email, age, ...newData } = formData;
+
+    const findAreas = locationName?.map((item: string) => {
+      const findLocation = selectedCityData?.areas.find(area => area.name === item);
+
+      return {
+        lat: findLocation?.lat,
+        lng: findLocation?.lng,
+        name: findLocation?.name,
+      };
+    });
+
+    const formattedData = {
+      ...newData,
+      location: findAreas?.length > 0 ? findAreas : [],
+      age: Number(age),
+    };
+
+    try {
+      const res = await updateUser({
+        id: data?._id,
+        data: formattedData,
+      });
+      if (res?.data) {
+        showToast({
+          message: 'User Updated Successfully',
+        });
+      }
+    } catch (error) {
+      console.error('error', error);
+    } finally {
+      setOpen(false);
+    }
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -78,7 +120,7 @@ function UserEditDrawer({ open, setOpen, data }: PropsTypes) {
       open={open}
       handleClose={handleClose}
     >
-      <form action="" className="flex flex-col gap-4">
+      <form action="" className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="name"
           control={control}
@@ -276,7 +318,9 @@ function UserEditDrawer({ open, setOpen, data }: PropsTypes) {
         />
 
         <div className="w-full mt-6">
-          <Button size="large">Update User</Button>
+          <Button size="large" htmlType="submit">
+            Update User
+          </Button>
         </div>
       </form>
     </CustomDrawer>

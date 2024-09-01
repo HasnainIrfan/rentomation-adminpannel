@@ -10,6 +10,7 @@ import TextContainer from '../ContainerText';
 // Utils
 import { formatDate } from './../../../utils/formatDate';
 import { NoProfile } from './../../../assets/images';
+import ArrayContainer from '../ContainerArray';
 
 type PropsTypes = {
   open: boolean;
@@ -21,6 +22,11 @@ function UserDrawer({ open, setOpen, data }: PropsTypes) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const filterLocationName =
+    data?.location &&
+    data?.location?.length > 0 &&
+    data?.location.map(location => location.name);
 
   return (
     <CustomDrawer
@@ -59,7 +65,7 @@ function UserDrawer({ open, setOpen, data }: PropsTypes) {
 
           <TextContainer label="City :" title={data?.city} />
 
-          <TextContainer label="Location :" title={data?.location?.name} />
+          <ArrayContainer label="Location :" data={filterLocationName || []} />
 
           <TextContainer label="Address :" title={data?.address} />
 

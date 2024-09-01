@@ -106,8 +106,8 @@ function DoctorEditDrawer({ open, setOpen, data }: PropsTypes) {
       certifications,
       location: locationName,
       email,
-      isDoctorVerified,
-      isVerified,
+      // isDoctorVerified,
+      // isVerified,
       ...newData
     } = formData;
 
