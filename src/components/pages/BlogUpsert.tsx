@@ -100,10 +100,7 @@ const BlogUpsert = () => {
 
   return (
     <div>
-      <form
-        className="flex flex-col gap-4 w-full p-3"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="flex flex-col gap-4 w-full p-3" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center justify-between pr-2">
           <Text containerTag="h1" className="text-lg font-medium text-blackColor">
             {id ? 'Update Blog' : 'Create Blog'}
