@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 
 // Antd
@@ -24,7 +25,6 @@ type PropTypes = {
 };
 
 function FloatInput({
-  onChange,
   label,
   type,
   name,

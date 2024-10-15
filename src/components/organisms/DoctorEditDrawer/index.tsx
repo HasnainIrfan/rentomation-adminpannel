@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 
 // React Hook Form
@@ -99,13 +100,13 @@ function DoctorEditDrawer({ open, setOpen, data }: PropsTypes) {
     const {
       specialization,
       age,
-      role,
-      middlename,
+      // role,
+      // middlename,
       services,
       education,
       certifications,
       location: locationName,
-      email,
+      // email,
       // isDoctorVerified,
       // isVerified,
       ...newData
@@ -462,7 +463,7 @@ function DoctorEditDrawer({ open, setOpen, data }: PropsTypes) {
           control={control}
           render={({ field }) => (
             <SolidRadio
-              title="isDoctorVerified"
+              title="IsDoctorVerified"
               field={field}
               option={isDoctorVerifiedOption}
             />

@@ -195,3 +195,12 @@ button[disabled] {
 .ant-table-column-sorter-inner {
   color: #fff;
 }
+
+/*  jodit-react textEditor */
+.jodit-react-container .jodit-workplace {
+  min-height: 500px !important;
+}
+
+.ant-upload-list {
+  width: 100%;
+}

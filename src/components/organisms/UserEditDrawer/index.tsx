@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 
 // React Hook Form
@@ -73,21 +74,13 @@ function UserEditDrawer({ open, setOpen, data }: PropsTypes) {
   }));
 
   const onSubmit = async (formData: any) => {
-    const { location: locationName, email, age, ...newData } = formData;
+    const { location, age, ...newData } = formData;
 
-    const findAreas = locationName?.map((item: string) => {
-      const findLocation = selectedCityData?.areas.find(area => area.name === item);
-
-      return {
-        lat: findLocation?.lat,
-        lng: findLocation?.lng,
-        name: findLocation?.name,
-      };
-    });
+    const findLocation = selectedCityData?.areas.find(area => area.name === location);
 
     const formattedData = {
       ...newData,
-      location: findAreas?.length > 0 ? findAreas : [],
+      location: findLocation ? [findLocation] : [],
       age: Number(age),
     };
 
@@ -318,7 +311,7 @@ function UserEditDrawer({ open, setOpen, data }: PropsTypes) {
         />
 
         <div className="w-full mt-6">
-          <Button size="large" htmlType="submit">
+          <Button size="large" htmlType="submit" disabled={updateLoading}>
             Update User
           </Button>
         </div>

@@ -15,7 +15,6 @@ const Dashboard = () => {
   const { data: dashbaordData, isLoading, isFetching } = useDashboardAnalyticsQuery({});
   const [responsiveChart, setResponsiveChart] = useState<boolean>(false);
 
-  console.log(dashbaordData, 'dashbaordData123');
   const data = dashbaordData?.data;
 
   const pieChart = {

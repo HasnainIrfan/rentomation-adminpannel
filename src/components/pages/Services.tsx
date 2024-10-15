@@ -1,60 +1,43 @@
 import React, { useState } from 'react';
-
-// Redux
-import {
-  useDeleteUserMutation,
-  useGetAllDoctorsQuery,
-} from '../../redux/slice/userSlice';
-
-// Components
 import SubHeader from '../organisms/UserSubHeader';
-import ConfrimModel from '../atoms/confirmModel';
-import CustomPagination from '../atoms/pagination';
-import Loader from '../atoms/loader';
-import DoctorTable from '../organisms/DoctorTable';
-import DoctorDrawer from '../organisms/DoctorDrawer';
-
-// Types
-import { DoctorDataType } from '../../types/userTypes';
+import {
+  useDeleteServiceMutation,
+  useGetAllServicesQuery,
+} from '../../redux/slice/serviceSlice';
 import { PaginationType, ResponseData } from '../../data/types';
-
-// Redux
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
-
-// Utils
 import { showToast } from '../../utils/toast';
 import { ErrorMessage } from '../../utils/error';
-import DoctorEditDrawer from '../organisms/DoctorEditDrawer';
+import ConfrimModel from '../atoms/confirmModel';
+import CustomPagination from '../atoms/pagination';
+import ServicesTable from '../organisms/ServicesTable';
+import Loader from '../atoms/loader';
+import { useNavigate } from 'react-router-dom';
 
-const Doctor = () => {
+const Services = () => {
+  const nevigate = useNavigate();
   const [search, setSearch] = useState<string>('');
-  const [isDrawer, setIsDrawer] = useState<boolean>(false);
+
   const [userId, setUserId] = useState<number | null>(null);
   const [isDeleteModel, setIsDeleteModel] = useState<boolean>(false);
-  const [isDrawerData, setIsDrawerData] = useState<DoctorDataType | null>(null);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isVerify, setIsVerify] = useState<boolean | null>(null);
-  const [isVerifyDoctor, setIsVerifyDoctor] = useState<boolean | null>(null);
 
   const [pagination, setPagination] = useState<PaginationType>({
     page: 1,
     pageSize: 10,
   });
 
-  const [deleteUser, { isLoading: deleteLoading }] = useDeleteUserMutation();
+  const [deleteData, { isLoading: deleteLoading }] = useDeleteServiceMutation();
 
   const {
-    data: userData,
+    data: allData,
     isLoading,
     isFetching,
-  } = useGetAllDoctorsQuery({
+  } = useGetAllServicesQuery({
     search,
-    isVerified: isVerify,
-    isDoctorVerified: isVerifyDoctor,
   });
 
-  const data = userData?.data?.docs;
+  const data = allData?.data?.docs;
 
   const onDeleteModel = (id: number) => {
     setUserId(id);
@@ -70,7 +53,7 @@ const Doctor = () => {
       const res: {
         data?: ResponseData;
         error?: FetchBaseQueryError | SerializedError;
-      } = await deleteUser(userId);
+      } = await deleteData(userId);
 
       if (res?.data) {
         showToast({
@@ -90,24 +73,15 @@ const Doctor = () => {
   return (
     <>
       <SubHeader
-        title="Doctor"
+        title="Services"
         search={search}
         setSearch={setSearch}
-        isVerify={isVerify}
-        setIsVerify={setIsVerify}
-        isVerifyDoctor={isVerifyDoctor}
-        setIsVerifyDoctor={setIsVerifyDoctor}
+        isRightAction
+        isRightSection={false}
+        onRightActionClick={() => nevigate('/services/upsert')}
+        onRightActionText="Create Services"
       />
 
-      <DoctorDrawer
-        open={isDrawer}
-        setOpen={setIsDrawer}
-        data={isDrawerData as DoctorDataType}
-      />
-
-      <DoctorEditDrawer open={isEdit} setOpen={setIsEdit} data={isDrawerData} />
-
-      {/* Delete Confrim Model */}
       <ConfrimModel
         open={isDeleteModel}
         setOpen={setIsDeleteModel}
@@ -119,24 +93,22 @@ const Doctor = () => {
         <Loader />
       ) : (
         <>
-          <DoctorTable
+          <ServicesTable
             data={data as []}
             onEdit={data => {
-              setIsDrawerData(data);
-              setIsEdit(true);
+              nevigate(`/services/upsert?id=${data._id}`);
             }}
             onDelete={onDeleteModel}
             onView={data => {
-              setIsDrawerData(data);
-              setIsDrawer(true);
+              window.open(`https://doctor-panel-taupe.vercel.app/services/${data._id}`);
             }}
           />
 
-          {userData?.data?.totalDocs > 0 && (
+          {allData?.data?.totalDocs > 0 && (
             <CustomPagination
               defaultPage={pagination.page}
               pageSize={pagination.pageSize}
-              totalCount={userData?.data?.totalDocs}
+              totalCount={allData?.data?.totalDocs}
               onChange={(page: number) => handlePagiantion(page)}
             />
           )}
@@ -146,4 +118,4 @@ const Doctor = () => {
   );
 };
 
-export default Doctor;
+export default Services;

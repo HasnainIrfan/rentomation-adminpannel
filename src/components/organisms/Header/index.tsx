@@ -60,8 +60,6 @@ const Header = ({
     },
   ];
 
-  console.log(user, 'user12');
-
   return (
     <div className="flex w-full items-center justify-between border-b border-r-2 border-lightGray bg-white p-2">
       <div>

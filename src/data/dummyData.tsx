@@ -3,7 +3,16 @@ import React from 'react';
 import { RadioOptionTypes, SelectBoxOption, SelectOption, SidebarItems } from './types';
 
 // Icons
-import { HeartAdd, People, StatusUp } from 'iconsax-react';
+
+import {
+  HeartAdd,
+  People,
+  StatusUp,
+  DocumentText,
+  Book,
+  Message,
+  Calendar2,
+} from 'iconsax-react';
 import { LINKS } from './links';
 
 export const DummySelectOptions: SelectOption[] = [
@@ -19,7 +28,7 @@ export const SidebarLinks: SidebarItems[] = [
     icon: <StatusUp size="21" />,
   },
   {
-    title: 'users',
+    title: 'patients',
     href: LINKS.USER,
     icon: <People size="21" />,
   },
@@ -27,6 +36,26 @@ export const SidebarLinks: SidebarItems[] = [
     title: 'doctors',
     href: LINKS.DOCTOR,
     icon: <HeartAdd size="21" />,
+  },
+  {
+    title: 'Services',
+    href: LINKS.SERVICES,
+    icon: <DocumentText size="21" />,
+  },
+  {
+    title: 'Blogs',
+    href: LINKS.BLOGS,
+    icon: <Book size="21" />,
+  },
+  {
+    title: 'Reservations',
+    href: LINKS.RESERVATIONS,
+    icon: <Calendar2 size="21" />,
+  },
+  {
+    title: 'Messages',
+    href: LINKS.MESSAGES,
+    icon: <Message size="21" />,
   },
 ];
 
@@ -52,14 +81,29 @@ export const isVerifiedOption: RadioOptionTypes[] = [
   },
 ];
 
+export const StatusOptions: SelectBoxOption[] = [
+  {
+    label: 'Reserved',
+    value: 'reserved',
+  },
+  {
+    label: 'Booked',
+    value: 'booked',
+  },
+  {
+    label: 'Cancelled',
+    value: 'cancelled',
+  },
+];
+
 export const isDoctorVerifiedOption: RadioOptionTypes[] = [
   {
     label: 'True',
-    value: true,
+    value: 'true',
   },
   {
     label: 'False',
-    value: false,
+    value: 'false',
   },
   {
     label: 'Pending',

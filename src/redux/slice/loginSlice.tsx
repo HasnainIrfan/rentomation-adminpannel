@@ -13,7 +13,15 @@ export const loginSlice = createApi({
         body: userData,
       }),
     }),
+
+    uploadImage: builder.mutation({
+      query: ({ profile }) => ({
+        url: '/auth/upload-picture',
+        method: 'POST',
+        body: profile,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = loginSlice;
+export const { useLoginMutation, useUploadImageMutation } = loginSlice;

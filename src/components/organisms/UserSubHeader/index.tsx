@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React from 'react';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 // Antd
-import { Select, Spin } from 'antd';
+import { Button, Select, Spin } from 'antd';
 
 // Components
 import Text from '../../atoms/commonText';
@@ -16,7 +15,11 @@ import { SearchNormal1 } from 'iconsax-react';
 import debounce from 'debounce';
 
 // Data
-import { isDoctorVerifiedOption, isVerifiedOption } from '../../../data/dummyData';
+import {
+  isDoctorVerifiedOption,
+  isVerifiedOption,
+  StatusOptions,
+} from '../../../data/dummyData';
 
 const SubHeader = ({
   title,
@@ -26,6 +29,12 @@ const SubHeader = ({
   setIsVerify,
   isVerifyDoctor,
   setIsVerifyDoctor,
+  isStatus,
+  setIsStatus,
+  isRightSection = true,
+  isRightAction = false,
+  onRightActionClick,
+  onRightActionText,
 }: {
   title: string;
   search?: string;
@@ -34,6 +43,12 @@ const SubHeader = ({
   setIsVerify?: (value: boolean | null) => void;
   isVerifyDoctor?: boolean | null;
   setIsVerifyDoctor?: (value: boolean | null) => void;
+  isStatus?: boolean | null;
+  setIsStatus?: (value: boolean | null) => void;
+  isRightSection?: boolean;
+  isRightAction?: boolean;
+  onRightActionClick?: () => void;
+  onRightActionText?: string;
 }) => {
   const [searchInput, setSearchInput] = useState(search || '');
   const [loading, setLoading] = useState(false);
@@ -80,33 +95,57 @@ const SubHeader = ({
           </>
         </div>
 
-        <div className="flex items-center justify-center gap-5">
-          <Select
-            options={isVerifiedOption}
-            placeholder="Is Email Verified"
-            className="w-40 border border-primary rounded-md"
-            allowClear
-            value={isVerify}
-            onChange={value => {
-              setIsVerify && setIsVerify(value);
-              setSearch && setSearch('');
-            }}
-          />
+        {isRightAction && (
+          <Button type="primary" className="w-40 h-10" onClick={onRightActionClick}>
+            {onRightActionText}
+          </Button>
+        )}
 
-          {setIsVerifyDoctor && (
-            <Select
-              options={isDoctorVerifiedOption}
-              placeholder="Is Doctor Verified"
-              className="w-40 border border-primary rounded-md"
-              allowClear
-              value={isVerifyDoctor}
-              onChange={value => {
-                setIsVerifyDoctor && setIsVerifyDoctor(value);
-                setSearch && setSearch('');
-              }}
-            />
-          )}
-        </div>
+        {isRightSection && (
+          <div className="flex items-center justify-center gap-5">
+            {setIsStatus && (
+              <Select
+                options={StatusOptions}
+                placeholder="Status"
+                className="w-40 border border-primary rounded-md"
+                allowClear
+                value={isStatus}
+                onChange={value => {
+                  setIsStatus && setIsStatus(value);
+                  setSearch && setSearch('');
+                }}
+              />
+            )}
+
+            {setIsVerify && (
+              <Select
+                options={isVerifiedOption}
+                placeholder="Is Email Verified"
+                className="w-40 border border-primary rounded-md"
+                allowClear
+                value={isVerify}
+                onChange={value => {
+                  setIsVerify && setIsVerify(value);
+                  setSearch && setSearch('');
+                }}
+              />
+            )}
+
+            {setIsVerifyDoctor && (
+              <Select
+                options={isDoctorVerifiedOption}
+                placeholder="Is Doctor Verified"
+                className="w-40 border border-primary rounded-md"
+                allowClear
+                value={isVerifyDoctor}
+                onChange={value => {
+                  setIsVerifyDoctor && setIsVerifyDoctor(value);
+                  setSearch && setSearch('');
+                }}
+              />
+            )}
+          </div>
+        )}
       </div>
     </>
   );

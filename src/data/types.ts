@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserData } from '../types/userTypes';
 
 export type SelectOption = {
@@ -96,4 +97,14 @@ export interface ResponseData {
 export interface PaginationType {
   page: number;
   pageSize: number;
+}
+
+export interface BlogsDataType {
+  id: string;
+  title: string;
+  subtitle: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  image: any;
 }
