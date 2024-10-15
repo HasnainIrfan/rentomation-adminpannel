@@ -101,7 +101,6 @@ const BlogUpsert = () => {
   return (
     <div>
       <form
-        action=""
         className="flex flex-col gap-4 w-full p-3"
         onSubmit={handleSubmit(onSubmit)}
       >
