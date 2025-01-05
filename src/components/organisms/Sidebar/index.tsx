@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarIF> = ({ isOpen, isHidden, setIsHidden }) => {
                 containerTag="h4"
                 className="w-full text-base font-bold uppercase text-primary"
               >
-                Tabayah
+                Rentomation
               </Text>
             )}
           </div>

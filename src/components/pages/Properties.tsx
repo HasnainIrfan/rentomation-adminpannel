@@ -1,40 +1,60 @@
 import React, { useState } from 'react';
+
+// Redux
+import {
+  useDeleteUserMutation,
+  useGetAllDoctorsQuery,
+} from '../../redux/slice/userSlice';
+
+// Components
 import SubHeader from '../organisms/UserSubHeader';
-import { PaginationType, ResponseData } from '../../data/types';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
-import { showToast } from '../../utils/toast';
-import { ErrorMessage } from '../../utils/error';
 import ConfrimModel from '../atoms/confirmModel';
 import CustomPagination from '../atoms/pagination';
-import ServicesTable from '../organisms/ServicesTable';
 import Loader from '../atoms/loader';
-import { useDeleteBlogMutation, useGetAllBlogsQuery } from '../../redux/slice/blogSlice';
-import { useNavigate } from 'react-router-dom';
+import DoctorTable from '../organisms/DoctorTable';
+import DoctorDrawer from '../organisms/DoctorDrawer';
 
-const Blogs = () => {
-  const nevigate = useNavigate();
+// Types
+import { DoctorDataType } from '../../types/userTypes';
+import { PaginationType, ResponseData } from '../../data/types';
+
+// Redux
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
+
+// Utils
+import { showToast } from '../../utils/toast';
+import { ErrorMessage } from '../../utils/error';
+import DoctorEditDrawer from '../organisms/DoctorEditDrawer';
+
+const Properties = () => {
   const [search, setSearch] = useState<string>('');
-
+  const [isDrawer, setIsDrawer] = useState<boolean>(false);
   const [userId, setUserId] = useState<number | null>(null);
   const [isDeleteModel, setIsDeleteModel] = useState<boolean>(false);
+  const [isDrawerData, setIsDrawerData] = useState<DoctorDataType | null>(null);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isVerify, setIsVerify] = useState<boolean | null>(null);
+  const [isVerifyDoctor, setIsVerifyDoctor] = useState<boolean | null>(null);
 
   const [pagination, setPagination] = useState<PaginationType>({
     page: 1,
     pageSize: 10,
   });
 
-  const [deleteData, { isLoading: deleteLoading }] = useDeleteBlogMutation();
+  const [deleteUser, { isLoading: deleteLoading }] = useDeleteUserMutation();
 
   const {
-    data: allData,
+    data: userData,
     isLoading,
     isFetching,
-  } = useGetAllBlogsQuery({
+  } = useGetAllDoctorsQuery({
     search,
+    isVerified: isVerify,
+    isDoctorVerified: isVerifyDoctor,
   });
 
-  const data = allData?.data?.docs;
+  const data = userData?.data?.docs;
 
   const onDeleteModel = (id: number) => {
     setUserId(id);
@@ -50,7 +70,7 @@ const Blogs = () => {
       const res: {
         data?: ResponseData;
         error?: FetchBaseQueryError | SerializedError;
-      } = await deleteData(userId);
+      } = await deleteUser(userId);
 
       if (res?.data) {
         showToast({
@@ -70,15 +90,24 @@ const Blogs = () => {
   return (
     <>
       <SubHeader
-        title="Blogs"
+        title="Properties"
         search={search}
         setSearch={setSearch}
-        isRightAction
-        isRightSection={false}
-        onRightActionClick={() => nevigate('/blogs/upsert')}
-        onRightActionText="Create Blog"
+        isVerify={isVerify}
+        setIsVerify={setIsVerify}
+        isVerifyDoctor={isVerifyDoctor}
+        setIsVerifyDoctor={setIsVerifyDoctor}
       />
 
+      <DoctorDrawer
+        open={isDrawer}
+        setOpen={setIsDrawer}
+        data={isDrawerData as DoctorDataType}
+      />
+
+      <DoctorEditDrawer open={isEdit} setOpen={setIsEdit} data={isDrawerData} />
+
+      {/* Delete Confrim Model */}
       <ConfrimModel
         open={isDeleteModel}
         setOpen={setIsDeleteModel}
@@ -90,22 +119,24 @@ const Blogs = () => {
         <Loader />
       ) : (
         <>
-          <ServicesTable
+          <DoctorTable
             data={data as []}
             onEdit={data => {
-              nevigate(`/blogs/upsert?id=${data._id}`);
+              setIsDrawerData(data);
+              setIsEdit(true);
             }}
             onDelete={onDeleteModel}
             onView={data => {
-              window.open(`https://doctor-panel-taupe.vercel.app/blogs/${data._id}`);
+              setIsDrawerData(data);
+              setIsDrawer(true);
             }}
           />
 
-          {allData?.data?.totalDocs > 0 && (
+          {userData?.data?.totalDocs > 0 && (
             <CustomPagination
               defaultPage={pagination.page}
               pageSize={pagination.pageSize}
-              totalCount={allData?.data?.totalDocs}
+              totalCount={userData?.data?.totalDocs}
               onChange={(page: number) => handlePagiantion(page)}
             />
           )}
@@ -115,4 +146,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default Properties;

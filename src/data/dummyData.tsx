@@ -12,6 +12,8 @@ import {
   Book,
   Message,
   Calendar2,
+  HomeHashtag,
+  Warning2,
 } from 'iconsax-react';
 import { LINKS } from './links';
 
@@ -28,34 +30,19 @@ export const SidebarLinks: SidebarItems[] = [
     icon: <StatusUp size="21" />,
   },
   {
-    title: 'patients',
+    title: 'Users',
     href: LINKS.USER,
     icon: <People size="21" />,
   },
   {
-    title: 'doctors',
-    href: LINKS.DOCTOR,
-    icon: <HeartAdd size="21" />,
+    title: 'Properties',
+    href: LINKS.PROPERTIES,
+    icon: <HomeHashtag size="21" />,
   },
   {
-    title: 'Services',
-    href: LINKS.SERVICES,
-    icon: <DocumentText size="21" />,
-  },
-  {
-    title: 'Blogs',
-    href: LINKS.BLOGS,
-    icon: <Book size="21" />,
-  },
-  {
-    title: 'Reservations',
-    href: LINKS.RESERVATIONS,
-    icon: <Calendar2 size="21" />,
-  },
-  {
-    title: 'Messages',
-    href: LINKS.MESSAGES,
-    icon: <Message size="21" />,
+    title: 'Complaints',
+    href: LINKS.COMPLAINT,
+    icon: <Warning2 size="21" />,
   },
 ];
 

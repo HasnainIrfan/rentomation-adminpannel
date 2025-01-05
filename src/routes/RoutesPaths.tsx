@@ -7,16 +7,11 @@ import Login from '../components/pages/Login';
 import Error401 from '../components/pages/Error401';
 import Error404 from '../components/pages/Error404';
 import User from '../components/pages/User';
-import Doctor from '../components/pages/Doctor';
-import Services from '../components/pages/Services';
-import Blogs from '../components/pages/Blogs';
-import Messages from '../components/pages/Messages';
+import Properties from '../components/pages/Properties';
 
 // Types
 import { RouteType } from '../types/commonTypes';
-import ServicesUpsert from '../components/pages/ServicesUpsert';
-import BlogUpsert from '../components/pages/BlogUpsert';
-import Reservation from '../components/pages/Reservation';
+import Complaint from '../components/pages/Complaint';
 
 export const PublicRoutes: RouteType[] = [
   {
@@ -31,36 +26,16 @@ export const PrivateRoutes: RouteType[] = [
     Component: Dashboard,
   },
   {
-    path: LINKS.DOCTOR,
-    Component: Doctor,
-  },
-  {
     path: LINKS.USER,
     Component: User,
   },
   {
-    path: LINKS.SERVICES,
-    Component: Services,
+    path: LINKS.PROPERTIES,
+    Component: Properties,
   },
   {
-    path: LINKS.SERVICESUPSERT,
-    Component: ServicesUpsert,
-  },
-  {
-    path: LINKS.BLOGS,
-    Component: Blogs,
-  },
-  {
-    path: LINKS.BlOGUPSERT,
-    Component: BlogUpsert,
-  },
-  {
-    path: LINKS.RESERVATIONS,
-    Component: Reservation,
-  },
-  {
-    path: LINKS.MESSAGES,
-    Component: Messages,
+    path: LINKS.COMPLAINT,
+    Component: Complaint,
   },
 ];
 

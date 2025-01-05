@@ -8,6 +8,8 @@ export const LINKS = {
   DASHBOARD: '/dashboard',
   USER: '/users',
   DOCTOR: '/doctor',
+  PROPERTIES: '/properties',
+  COMPLAINT: '/complaint',
   SERVICES: '/services',
   SERVICESUPSERT: '/services/upsert',
   BlOGUPSERT: '/blogs/upsert',

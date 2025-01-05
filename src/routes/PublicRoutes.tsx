@@ -14,6 +14,8 @@ const PublicRoute = () => {
   const location = useLocation();
   const auth = getCookie(TABAYAD_SESSION);
 
+  return <Navigate to={LINKS.DASHBOARD} state={{ from: location }} replace />;
+
   return !auth ? (
     <Outlet />
   ) : (

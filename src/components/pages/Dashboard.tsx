@@ -18,17 +18,17 @@ const Dashboard = () => {
   const data = dashbaordData?.data;
 
   const pieChart = {
-    labels: ['Total Doctors', 'Total Patients', 'Un Verified Doctors', 'Pending Doctors'],
+    labels: ['Total Users', 'Un Approved Users', 'Total Properties', 'Total Complaints'],
     datasets: [
       {
         data: [
-          data?.totalDoctors,
-          data?.totalPatients,
-          data?.unVerifiedDoctors,
-          data?.pendingDoctors,
+          data?.totalDoctors || 10,
+          data?.totalPatients || 3,
+          data?.unVerifiedDoctors || 23,
+          data?.pendingDoctors || 2,
         ],
         hoverOffset: 4,
-        backgroundColor: ['#0eec2f', '#f4e409', '#ff0000', '#ffa12b'],
+        backgroundColor: ['#0eec2f', '#f4e409', '#ffa12b', '#ff0000'],
       },
     ],
   };
@@ -81,14 +81,14 @@ const Dashboard = () => {
                 containerTag="h6"
                 className="md:w-full w-max text-xs text-primary font-semibold md:mb-5 mb-0"
               >
-                Total Doctors :
+                Total Users :
               </Text>
 
               <Text
                 containerTag="h6"
                 className="text-base text-center text-grayColor font-semibold"
               >
-                {data?.totalDoctors} Doctors
+                {data?.totalDoctors || 10} Users
               </Text>
             </div>
             <div className="w-[calc(50%-12px)] rounded-md p-5 shadow-lg border-2 border-lightGray">
@@ -96,14 +96,14 @@ const Dashboard = () => {
                 containerTag="h6"
                 className="md:w-full w-max text-xs text-primary font-semibold md:mb-5 mb-0"
               >
-                Un Approved Doctors :
+                Un Approved Users :
               </Text>
 
               <Text
                 containerTag="h6"
                 className="text-base text-center text-grayColor font-semibold"
               >
-                {data?.unVerifiedDoctors} Doctors
+                {data?.unVerifiedDoctors || 3} Users
               </Text>
             </div>
             <div className="w-[calc(50%-12px)] rounded-md p-5 shadow-lg border-2 border-lightGray">
@@ -111,14 +111,14 @@ const Dashboard = () => {
                 containerTag="h6"
                 className="md:w-full w-max text-xs text-primary font-semibold md:mb-5 mb-0"
               >
-                Pending Doctors :
+                Total Properties :
               </Text>
 
               <Text
                 containerTag="h6"
                 className="text-base text-center text-grayColor font-semibold"
               >
-                {data?.pendingDoctors} Doctors
+                {data?.pendingDoctors || 23} Properties
               </Text>
             </div>
             <div className="w-[calc(50%-12px)] rounded-md p-5 shadow-lg border-2 border-lightGray">
@@ -126,14 +126,14 @@ const Dashboard = () => {
                 containerTag="h6"
                 className="md:w-full w-max text-xs text-primary font-semibold md:mb-5 mb-0"
               >
-                Total Patients :
+                Total Complaints :
               </Text>
 
               <Text
                 containerTag="h6"
                 className="text-base text-center text-grayColor font-semibold"
               >
-                {data?.totalPatients} Patients
+                {data?.totalPatients || 2} Complaints
               </Text>
             </div>
           </div>
