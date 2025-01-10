@@ -21,36 +21,42 @@ export const userSlice = createApi({
 
   endpoints: builder => ({
     dashboardAnalytics: builder.query({
-      query: () => '/dashboard/all-analytics',
+      query: () => 'property/dashboard/all',
     }),
 
     getAllUsers: builder.query({
-      query: ({ isVerified, search }) =>
-        isVerified !== undefined && isVerified !== null
-          ? `/auth/get-users?role=patient&isVerified=${isVerified}`
-          : search
-            ? `/auth/get-users?role=patient&query=${search}`
-            : '/auth/get-users?role=patient',
+      query: ({ search }) =>
+        search ? `user/get-users?query=${search}` : 'user/get-users',
       providesTags: ['Post'],
     }),
 
     getAllDoctors: builder.query({
-      query: ({ isVerified, isDoctorVerified, search }) =>
-        isVerified !== undefined && isVerified !== null
-          ? `/auth/get-users?role=doctor&isVerified=${isVerified}`
-          : isDoctorVerified !== undefined && isDoctorVerified !== null
-            ? `/auth/get-users?isDoctorVerified=${isDoctorVerified}&role=doctor`
-            : isVerified && isDoctorVerified
-              ? `/auth/get-users?isDoctorVerified=${isDoctorVerified}&role=doctor&isVerified=${isVerified}`
-              : search
-                ? `/auth/get-users?role=doctor&query=${search}`
-                : '/auth/get-users?role=doctor',
+      query: ({ search }) =>
+        search ? `property/get-all?query=${search}` : 'property/get-all',
+      providesTags: ['Post'],
+    }),
+
+    getAllComplain: builder.query({
+      query: () => 'complain',
+      providesTags: ['Post'],
+    }),
+
+    getProgress: builder.query({
+      query: () => 'property/dashboard/all',
       providesTags: ['Post'],
     }),
 
     deleteUser: builder.mutation({
       query: id => ({
         url: `/auth/delete-user/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Post'],
+    }),
+
+    deleleProperties: builder.mutation({
+      query: id => ({
+        url: `/property/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Post'],
@@ -70,7 +76,10 @@ export const userSlice = createApi({
 export const {
   useGetAllUsersQuery,
   useDeleteUserMutation,
+  useDelelePropertiesMutation,
   useGetAllDoctorsQuery,
   useDashboardAnalyticsQuery,
   useUpdateUserMutation,
+  useGetProgressQuery,
+  useGetAllComplainQuery,
 } = userSlice;

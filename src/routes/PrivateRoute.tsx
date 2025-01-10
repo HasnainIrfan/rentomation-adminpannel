@@ -17,11 +17,11 @@ const PrivateRoute = () => {
   const location = useLocation();
   const auth = getCookie(TABAYAD_SESSION);
 
-  return (
-    <DashbboardLayout>
-      <Outlet />
-    </DashbboardLayout>
-  );
+  // return (
+  //   <DashbboardLayout>
+  //     <Outlet />
+  //   </DashbboardLayout>
+  // );
 
   return auth ? (
     <DashbboardLayout>

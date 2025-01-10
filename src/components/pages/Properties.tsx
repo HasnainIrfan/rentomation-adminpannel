@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react';
 
 // Redux
 import {
-  useDeleteUserMutation,
+  useDelelePropertiesMutation,
   useGetAllDoctorsQuery,
 } from '../../redux/slice/userSlice';
 
@@ -11,8 +12,6 @@ import SubHeader from '../organisms/UserSubHeader';
 import ConfrimModel from '../atoms/confirmModel';
 import CustomPagination from '../atoms/pagination';
 import Loader from '../atoms/loader';
-import DoctorTable from '../organisms/DoctorTable';
-import DoctorDrawer from '../organisms/DoctorDrawer';
 
 // Types
 import { DoctorDataType } from '../../types/userTypes';
@@ -25,34 +24,22 @@ import { SerializedError } from '@reduxjs/toolkit';
 // Utils
 import { showToast } from '../../utils/toast';
 import { ErrorMessage } from '../../utils/error';
-import DoctorEditDrawer from '../organisms/DoctorEditDrawer';
+import ComplainTable from '../organisms/ComplainTable';
 
 const Properties = () => {
-  const [search, setSearch] = useState<string>('');
-  const [isDrawer, setIsDrawer] = useState<boolean>(false);
   const [userId, setUserId] = useState<number | null>(null);
   const [isDeleteModel, setIsDeleteModel] = useState<boolean>(false);
-  const [isDrawerData, setIsDrawerData] = useState<DoctorDataType | null>(null);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isVerify, setIsVerify] = useState<boolean | null>(null);
-  const [isVerifyDoctor, setIsVerifyDoctor] = useState<boolean | null>(null);
+  const [newData, setNewData] = useState<DoctorDataType | null>(null);
 
   const [pagination, setPagination] = useState<PaginationType>({
     page: 1,
     pageSize: 10,
   });
 
-  const [deleteUser, { isLoading: deleteLoading }] = useDeleteUserMutation();
+  const [deleteProperties, { isLoading: deleteLoading }] = useDelelePropertiesMutation();
 
-  const {
-    data: userData,
-    isLoading,
-    isFetching,
-  } = useGetAllDoctorsQuery({
-    search,
-    isVerified: isVerify,
-    isDoctorVerified: isVerifyDoctor,
-  });
+  const { data: userData, isLoading, isFetching } = useGetAllDoctorsQuery({});
 
   const data = userData?.data?.docs;
 
@@ -70,7 +57,7 @@ const Properties = () => {
       const res: {
         data?: ResponseData;
         error?: FetchBaseQueryError | SerializedError;
-      } = await deleteUser(userId);
+      } = await deleteProperties(userId);
 
       if (res?.data) {
         showToast({
@@ -87,25 +74,23 @@ const Properties = () => {
     }
   };
 
+  useEffect(() => {
+    const fomatedData = isVerify
+      ? data?.filter((item: DoctorDataType) => item.status === 'verified')
+      : data?.filter((item: DoctorDataType) => item.status !== 'verified');
+
+    if (isVerify === null || isVerify === undefined) {
+      setNewData(data);
+    } else {
+      setNewData(fomatedData);
+    }
+  }, [isVerify, !isVerify, data]);
+
+  console.log(isVerify, 'isVerifyisVerify');
+
   return (
     <>
-      <SubHeader
-        title="Properties"
-        search={search}
-        setSearch={setSearch}
-        isVerify={isVerify}
-        setIsVerify={setIsVerify}
-        isVerifyDoctor={isVerifyDoctor}
-        setIsVerifyDoctor={setIsVerifyDoctor}
-      />
-
-      <DoctorDrawer
-        open={isDrawer}
-        setOpen={setIsDrawer}
-        data={isDrawerData as DoctorDataType}
-      />
-
-      <DoctorEditDrawer open={isEdit} setOpen={setIsEdit} data={isDrawerData} />
+      <SubHeader title="Properties" isVerify={isVerify} setIsVerify={setIsVerify} />
 
       {/* Delete Confrim Model */}
       <ConfrimModel
@@ -119,18 +104,7 @@ const Properties = () => {
         <Loader />
       ) : (
         <>
-          <DoctorTable
-            data={data as []}
-            onEdit={data => {
-              setIsDrawerData(data);
-              setIsEdit(true);
-            }}
-            onDelete={onDeleteModel}
-            onView={data => {
-              setIsDrawerData(data);
-              setIsDrawer(true);
-            }}
-          />
+          <ComplainTable data={newData as any} onDelete={onDeleteModel} />
 
           {userData?.data?.totalDocs > 0 && (
             <CustomPagination

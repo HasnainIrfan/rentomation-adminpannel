@@ -31,7 +31,6 @@ const User = () => {
   const [isDeleteModel, setIsDeleteModel] = useState<boolean>(false);
   const [isDrawerData, setIsDrawerData] = useState<UserData | null>(null);
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isVerify, setIsVerify] = useState<boolean | null>(null);
 
   const [pagination, setPagination] = useState<PaginationType>({
     page: 1,
@@ -47,8 +46,8 @@ const User = () => {
     isFetching,
   } = useGetAllUsersQuery({
     search,
-    isVerified: isVerify,
   });
+
   const data = userData?.data?.docs;
 
   const onDeleteModel = (id: number) => {
@@ -84,13 +83,7 @@ const User = () => {
 
   return (
     <>
-      <SubHeader
-        title="Users"
-        search={search}
-        setSearch={setSearch}
-        isVerify={isVerify}
-        setIsVerify={setIsVerify}
-      />
+      <SubHeader title="Users" search={search} setSearch={setSearch} />
 
       <UserDrawer open={isDrawer} setOpen={setIsDrawer} data={isDrawerData as UserData} />
       <UserEditDrawer open={isEdit} setOpen={setIsEdit} data={isDrawerData as UserData} />

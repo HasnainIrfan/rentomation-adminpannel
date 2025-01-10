@@ -18,7 +18,7 @@ type PropsTypes = {
   data: UserData[];
 };
 
-const UserTable = ({ onDelete, onView, onEdit, data }: PropsTypes) => {
+const UserTable = ({ onDelete, data }: PropsTypes) => {
   const columns: ColumnsType<any> = [
     {
       title: 'Name',
@@ -26,10 +26,10 @@ const UserTable = ({ onDelete, onView, onEdit, data }: PropsTypes) => {
       render: (text, record) => (
         <div className="flex items-center gap-3">
           <div className="relative w-7 h-7 rounded-full overflow-hidden">
-            <img src={record?.profileImage?.url || NoProfile} alt="" draggable={false} />
+            <img src={record?.profileImage || NoProfile} alt="" draggable={false} />
           </div>
           <Text containerTag="h1" className="text-sm font-semibold text-grayColor">
-            {record.name ? `${record.name} ${record?.middlename}` : 'No Name'}
+            {record.username ? `${record.username} ` : 'No Name'}
           </Text>
         </div>
       ),
@@ -49,22 +49,12 @@ const UserTable = ({ onDelete, onView, onEdit, data }: PropsTypes) => {
       },
     },
     {
-      title: 'Phone Number',
-      dataIndex: 'phone',
+      title: 'Cnic Number',
+      dataIndex: 'cnic',
       sorter: (a, b) => {
         const phoneA = a.phone ? a.phone.toLowerCase() : '';
         const phoneB = b.phone ? b.phone.toLowerCase() : '';
         return phoneA.localeCompare(phoneB);
-      },
-    },
-    {
-      title: 'Gender',
-      dataIndex: `gender`,
-      align: 'center',
-      sorter: (a, b) => {
-        const genderA = a.gender ? a.gender.toLowerCase() : '';
-        const genderB = b.gender ? b.gender.toLowerCase() : '';
-        return genderA.localeCompare(genderB);
       },
     },
     {
@@ -73,44 +63,10 @@ const UserTable = ({ onDelete, onView, onEdit, data }: PropsTypes) => {
       align: 'center',
     },
     {
-      title: 'Location',
-      dataIndex: 'gym_id',
-      align: 'center',
-      render: (text, record: any) => (
-        <Text containerTag="h5">{record?.location?.[0]?.name}</Text>
-      ),
-    },
-    {
-      title: 'Verified',
-      dataIndex: 'isVerified',
-      align: 'center',
-      render: (text, record) => (
-        <Text
-          containerTag="h5"
-          className={`text-sm font-semibold ${
-            record.isVerified ? 'text-colorGreen' : 'text-red'
-          }`}
-        >
-          {record.isVerified ? 'Yes' : 'No'}
-        </Text>
-      ),
-      sorter: (a, b) => {
-        const trainerA = a.isVerified ? 1 : 0;
-        const trainerB = b.isVerified ? 1 : 0;
-        return trainerA - trainerB;
-      },
-    },
-    {
       title: 'Action',
       dataIndex: 'action',
       align: 'center',
-      render: (text, record) => (
-        <Action
-          onView={() => onView(record as UserData)}
-          onEdit={() => onEdit(record as UserData)}
-          onDelete={() => onDelete(record._id)}
-        />
-      ),
+      render: (text, record) => <Action onDelete={() => onDelete(record._id)} />,
     },
   ];
   return <TableComponent data={data} columns={columns} />;

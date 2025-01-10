@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import Text from '../atoms/commonText';
 
@@ -18,14 +19,19 @@ const Dashboard = () => {
   const data = dashbaordData?.data;
 
   const pieChart = {
-    labels: ['Total Users', 'Un Approved Users', 'Total Properties', 'Total Complaints'],
+    labels: [
+      'Total User',
+      'Total Properties',
+      'Total Verified Properties',
+      'Total UnVerified Properties',
+    ],
     datasets: [
       {
         data: [
-          data?.totalDoctors || 10,
-          data?.totalPatients || 3,
-          data?.unVerifiedDoctors || 23,
-          data?.pendingDoctors || 2,
+          data?.totalUsers,
+          data?.totalProperties,
+          data?.verifiedProperties,
+          data?.unverifiedProperties,
         ],
         hoverOffset: 4,
         backgroundColor: ['#0eec2f', '#f4e409', '#ffa12b', '#ff0000'],
@@ -88,22 +94,7 @@ const Dashboard = () => {
                 containerTag="h6"
                 className="text-base text-center text-grayColor font-semibold"
               >
-                {data?.totalDoctors || 10} Users
-              </Text>
-            </div>
-            <div className="w-[calc(50%-12px)] rounded-md p-5 shadow-lg border-2 border-lightGray">
-              <Text
-                containerTag="h6"
-                className="md:w-full w-max text-xs text-primary font-semibold md:mb-5 mb-0"
-              >
-                Un Approved Users :
-              </Text>
-
-              <Text
-                containerTag="h6"
-                className="text-base text-center text-grayColor font-semibold"
-              >
-                {data?.unVerifiedDoctors || 3} Users
+                {data?.totalUsers} Users
               </Text>
             </div>
             <div className="w-[calc(50%-12px)] rounded-md p-5 shadow-lg border-2 border-lightGray">
@@ -118,7 +109,7 @@ const Dashboard = () => {
                 containerTag="h6"
                 className="text-base text-center text-grayColor font-semibold"
               >
-                {data?.pendingDoctors || 23} Properties
+                {data?.totalProperties} Properties
               </Text>
             </div>
             <div className="w-[calc(50%-12px)] rounded-md p-5 shadow-lg border-2 border-lightGray">
@@ -126,14 +117,29 @@ const Dashboard = () => {
                 containerTag="h6"
                 className="md:w-full w-max text-xs text-primary font-semibold md:mb-5 mb-0"
               >
-                Total Complaints :
+                Total Verified Properties :
               </Text>
 
               <Text
                 containerTag="h6"
                 className="text-base text-center text-grayColor font-semibold"
               >
-                {data?.totalPatients || 2} Complaints
+                {data?.verifiedProperties} Properties
+              </Text>
+            </div>
+            <div className="w-[calc(50%-12px)] rounded-md p-5 shadow-lg border-2 border-lightGray">
+              <Text
+                containerTag="h6"
+                className="md:w-full w-max text-xs text-primary font-semibold md:mb-5 mb-0"
+              >
+                Total Un VerifiedProperties :
+              </Text>
+
+              <Text
+                containerTag="h6"
+                className="text-base text-center text-grayColor font-semibold"
+              >
+                {data?.unverifiedProperties} Un VerifiedProperties
               </Text>
             </div>
           </div>

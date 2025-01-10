@@ -33,6 +33,7 @@ export interface UserData {
 
 export interface DoctorDataType {
   _id: string;
+  status: 'verified' | 'pending' | 'rejected';
   name: string;
   email: string;
   phone: string;

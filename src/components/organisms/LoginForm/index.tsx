@@ -100,7 +100,7 @@ const LoginForm = () => {
           errors={errors}
           check={{
             required: `Email is Required`,
-            // pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+            pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
           }}
         />
 

@@ -80,19 +80,21 @@ const SubHeader = ({
 
       <div className="mb-5 flex items-center justify-between">
         <div className="relative flex w-80 items-center">
-          <>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchInput}
-              onChange={handleChange}
-              className="h-10 w-full rounded-md border-4 border-none border-grayColor4 bg-grayColor4 pl-4 pr-14 text-base outline-none"
-            />
+          {setSearch && (
+            <>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchInput}
+                onChange={handleChange}
+                className="h-10 w-full rounded-md border-4 border-none border-grayColor4 bg-grayColor4 pl-4 pr-14 text-base outline-none"
+              />
 
-            <div className="absolute right-[3px] flex h-9 w-9 items-center justify-center rounded-md bg-primary text-white shadow-purpleShadow cursor-pointer">
-              {loading ? <Spin size="small" /> : <SearchNormal1 size={16} />}
-            </div>
-          </>
+              <div className="absolute right-[3px] flex h-9 w-9 items-center justify-center rounded-md bg-primary text-white shadow-purpleShadow cursor-pointer">
+                {loading ? <Spin size="small" /> : <SearchNormal1 size={16} />}
+              </div>
+            </>
+          )}
         </div>
 
         {isRightAction && (
@@ -120,7 +122,7 @@ const SubHeader = ({
             {setIsVerify && (
               <Select
                 options={isVerifiedOption}
-                placeholder="Is Email Verified"
+                placeholder="Is Properties Verified"
                 className="w-40 border border-primary rounded-md"
                 allowClear
                 value={isVerify}
