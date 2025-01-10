@@ -13,9 +13,10 @@ import TableComponent from '../../atoms/Table';
 type PropsTypes = {
   onDelete: (id: number) => void;
   data: DoctorDataType[];
+  onEdit: (data: DoctorDataType) => void;
 };
 
-const ComplainTable = ({ onDelete, data }: PropsTypes) => {
+const ComplainTable = ({ onDelete, data, onEdit }: PropsTypes) => {
   const columns: ColumnsType<any> = [
     {
       title: 'Name',
@@ -119,7 +120,9 @@ const ComplainTable = ({ onDelete, data }: PropsTypes) => {
       title: 'Action',
       dataIndex: 'action',
       align: 'center',
-      render: (text, record) => <Action onDelete={() => onDelete(record._id)} />,
+      render: (text, record) => (
+        <Action onDelete={() => onDelete(record._id)} onEdit={() => onEdit(record)} />
+      ),
     },
   ];
   return <TableComponent data={data} columns={columns} />;

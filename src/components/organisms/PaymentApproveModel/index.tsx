@@ -16,17 +16,20 @@ const PaymentModel = ({
 }) => {
   const [uploadPayment, { isLoading: paymentLoading }] = useUpdateReservationMutation();
 
+  console.log(data, 'datadata');
+
   const handleApprove = async () => {
     try {
       const payload = {
-        status: 'booked',
-        fees: data?.fees,
+        status: 'verified',
       };
 
-      await uploadPayment({
+      const res = await uploadPayment({
         id: data?._id,
         data: payload,
       });
+
+      console.log(res, 'resres');
 
       showToast({
         type: 'success',
@@ -42,8 +45,7 @@ const PaymentModel = ({
   const handleReject = async () => {
     try {
       const payload = {
-        status: 'cancelled',
-        fees: data?.fees,
+        status: 'unverified',
       };
 
       await uploadPayment({
@@ -63,36 +65,49 @@ const PaymentModel = ({
   };
 
   return (
-    <Model title="Payment" open={open} handleClose={handleClose} closeIcon width={500}>
+    <Model
+      title="Property Verification"
+      open={open}
+      handleClose={handleClose}
+      closeIcon
+      width={500}
+    >
       <div className="p-3">
-        <img src={data?.paymentImage?.url} alt="" width="100%" height={400} />
+        {/* <Text containerTag="h6" className="text-xl font-semibold text-center mb-3">
+          {data?.status === 'verified' ? 'Verify Property' : 'Reject Property'}
+        </Text> */}
+        <p
+          style={{
+            fontSize: '18px',
+          }}
+        >
+          {data?.description}
+        </p>
       </div>
 
-      {data?.status === 'reserved' && (
-        <div className="flex items-center justify-between gap-3 pb-3 pt-5">
-          <Button
-            type="primary"
-            className="px-8"
-            danger
-            onClick={handleReject}
-            size="middle"
-            disabled={paymentLoading}
-          >
-            Reject
-          </Button>
+      <div className="flex items-center justify-between gap-3 pb-3 pt-5">
+        <Button
+          type="primary"
+          className="px-8"
+          danger
+          onClick={handleReject}
+          size="middle"
+          disabled={paymentLoading}
+        >
+          Reject Property
+        </Button>
 
-          <Button
-            type="primary"
-            className="px-8"
-            onClick={handleApprove}
-            size="middle"
-            disabled={paymentLoading}
-            loading={paymentLoading}
-          >
-            Approve
-          </Button>
-        </div>
-      )}
+        <Button
+          type="primary"
+          className="px-8"
+          onClick={handleApprove}
+          size="middle"
+          disabled={paymentLoading}
+          loading={paymentLoading}
+        >
+          Approve Property
+        </Button>
+      </div>
     </Model>
   );
 };

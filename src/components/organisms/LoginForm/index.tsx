@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,10 +42,13 @@ const LoginForm = () => {
     mode: 'onTouched',
   });
 
-  const onSubmit: SubmitHandler<LoginPropsType> = async formValues => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit: SubmitHandler<any> = async formValues => {
     try {
-      const res = await login(formValues);
+      const res: any = await login(formValues);
       const userDetail = res?.data?.data;
+      const token = res?.data?.token;
+      console.log(res, 'resres');
 
       if (res?.data && userDetail.role === 'admin') {
         showToast({
@@ -52,6 +56,8 @@ const LoginForm = () => {
           type: 'success',
         });
         setCookie(TABAYAD_SESSION, JSON.stringify(userDetail));
+        setCookie('tabayad-session-token', JSON.stringify(token));
+
         nevigate(LINKS.DASHBOARD);
       } else if (res?.error) {
         return showToast({

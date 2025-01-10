@@ -25,12 +25,15 @@ import { SerializedError } from '@reduxjs/toolkit';
 import { showToast } from '../../utils/toast';
 import { ErrorMessage } from '../../utils/error';
 import ComplainTable from '../organisms/ComplainTable';
+import PaymentModel from '../organisms/PaymentApproveModel';
 
 const Properties = () => {
   const [userId, setUserId] = useState<number | null>(null);
   const [isDeleteModel, setIsDeleteModel] = useState<boolean>(false);
   const [isVerify, setIsVerify] = useState<boolean | null>(null);
   const [newData, setNewData] = useState<DoctorDataType | null>(null);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isDrawerData, setIsDrawerData] = useState<DoctorDataType | null>(null);
 
   const [pagination, setPagination] = useState<PaginationType>({
     page: 1,
@@ -86,12 +89,13 @@ const Properties = () => {
     }
   }, [isVerify, !isVerify, data]);
 
-  console.log(isVerify, 'isVerifyisVerify');
+  const handleClose = () => {
+    setIsEdit(false);
+  };
 
   return (
     <>
       <SubHeader title="Properties" isVerify={isVerify} setIsVerify={setIsVerify} />
-
       {/* Delete Confrim Model */}
       <ConfrimModel
         open={isDeleteModel}
@@ -99,12 +103,20 @@ const Properties = () => {
         onDelete={onDelete}
         loading={deleteLoading}
       />
+      <PaymentModel open={isEdit} handleClose={handleClose} data={isDrawerData} />
 
       {isLoading || isFetching ? (
         <Loader />
       ) : (
         <>
-          <ComplainTable data={newData as any} onDelete={onDeleteModel} />
+          <ComplainTable
+            data={newData as any}
+            onDelete={onDeleteModel}
+            onEdit={data => {
+              setIsDrawerData(data);
+              setIsEdit(true);
+            }}
+          />
 
           {userData?.data?.totalDocs > 0 && (
             <CustomPagination

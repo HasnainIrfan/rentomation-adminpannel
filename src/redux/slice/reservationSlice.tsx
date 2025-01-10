@@ -1,4 +1,3 @@
-import { TABAYAD_SESSION } from './../../utils/constant';
 import { getCookie } from './../../utils/cookie';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -6,18 +5,19 @@ export const reservationSlice = createApi({
   reducerPath: 'reservationSlice',
   baseQuery: fetchBaseQuery({
     prepareHeaders: headers => {
-      const user = getCookie(TABAYAD_SESSION);
-      const token = user ? JSON.parse(user).refreshToken : null;
+      const token = getCookie('tabayad-session-token');
+
+      const tokens = token ? JSON.parse(token) : null;
+
       headers.set('Content-Type', 'application/json');
       headers.set('Accept', 'application/json');
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+      if (tokens) {
+        headers.set('x-auth-token', `Bearer ${tokens}`);
       }
       return headers;
     },
     baseUrl: process.env.REACT_APP_BASE_URL,
   }),
-
   tagTypes: ['Reservations'],
 
   endpoints: builder => ({
@@ -33,7 +33,7 @@ export const reservationSlice = createApi({
 
     updateReservation: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/booking/${id}`,
+        url: `/property/${id}`,
         method: 'PUT',
         body: data,
       }),
