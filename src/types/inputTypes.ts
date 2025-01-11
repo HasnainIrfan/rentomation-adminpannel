@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldErrors } from 'react-hook-form';
 
 export interface InputProps {

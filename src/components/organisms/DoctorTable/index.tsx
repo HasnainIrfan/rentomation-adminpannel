@@ -31,7 +31,7 @@ const PropertiesTable = ({ data }: PropsTypes) => {
       dataIndex: 'user',
       render: (text, record) => (
         <Text containerTag="h5" className="text-sm font-semibold">
-          {record?.user?.email}
+          {record?.user?.email || record?.name}
         </Text>
       ),
       sorter: (a, b) => {

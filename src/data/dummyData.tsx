@@ -4,17 +4,7 @@ import { RadioOptionTypes, SelectBoxOption, SelectOption, SidebarItems } from '.
 
 // Icons
 
-import {
-  HeartAdd,
-  People,
-  StatusUp,
-  DocumentText,
-  Book,
-  Message,
-  Calendar2,
-  HomeHashtag,
-  Warning2,
-} from 'iconsax-react';
+import { People, StatusUp, HomeHashtag, Warning2 } from 'iconsax-react';
 import { LINKS } from './links';
 
 export const DummySelectOptions: SelectOption[] = [

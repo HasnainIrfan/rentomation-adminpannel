@@ -32,7 +32,9 @@ export const userSlice = createApi({
 
     getAllDoctors: builder.query({
       query: ({ search }) =>
-        search ? `property/get-all?query=${search}` : 'property/get-all',
+        search
+          ? `property/dashboard/admin/all?query=${search}`
+          : 'property/dashboard/admin/all',
       providesTags: ['Post'],
     }),
 

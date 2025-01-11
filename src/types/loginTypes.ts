@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type LoginPropsType = {
   email: string;
   password: string;
